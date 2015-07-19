@@ -2,4 +2,4 @@
 extern crate biterator;
 extern crate itertools;
 
-mod crockford_base32;
+pub mod crockford_base32;
