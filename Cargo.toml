@@ -10,3 +10,4 @@ git = "https://github.com/mneumann/rust-biterator.git"
 [dependencies]
 
 itertools = "*"
+rand = "*"

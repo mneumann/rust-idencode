@@ -56,7 +56,10 @@ fn test_decode() {
 
 #[test]
 fn test_cyclic() {
-    for i in 0 .. 1_000_000u64 {
+    use super::rand::random;
+    assert_eq!(Some(0), decode(encode(0).as_bytes()));
+    for _ in 0 .. 1_000 {
+        let i = random::<u64>();
         let enc = encode(i);
         let dec = decode(enc.as_bytes());
         assert_eq!(Some(i), dec);
