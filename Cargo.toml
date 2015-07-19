@@ -1,0 +1,12 @@
+[package]
+name = "idencode"
+version = "0.1.0"
+authors = ["Michael Neumann <mneumann@ntecs.de>"]
+
+[dependencies.biterator]
+
+git = "https://github.com/mneumann/rust-biterator.git"
+
+[dependencies]
+
+itertools = "*"
