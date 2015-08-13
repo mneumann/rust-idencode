@@ -1,19 +1,24 @@
-use std::str;
-const ALPHABET: &'static[u8] = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+use std::io;
 
-pub fn encode(id: u64) -> String {
-    let mut v = Vec::new();
+const ALPHABET: &'static[u8] =   b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+#[inline]
+pub fn encode_wr<W:io::Write>(wr: &mut W, id: u64) -> io::Result<()> {
     let mut n = id;
     let alphasize = ALPHABET.len() as u64;
     loop {
         let rem = n % alphasize;
-        v.push(ALPHABET[rem as usize]);
         n = n / alphasize;
+        try!(wr.write_all(&ALPHABET[rem as usize .. rem as usize + 1]));
         if n == 0 { break; }
     }
+    Ok(())
+}
 
-    unsafe {str::from_utf8_unchecked(&v)}.to_string()
+pub fn encode(id: u64) -> String {
+    let mut v = Vec::new();
+    encode_wr(&mut v, id).unwrap();
+    String::from_utf8(v).unwrap()
 }
 
 pub fn decode(bytes: &[u8]) -> Option<u64> {

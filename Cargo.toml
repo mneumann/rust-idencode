@@ -11,3 +11,4 @@ git = "https://github.com/mneumann/rust-biterator.git"
 
 itertools = "*"
 rand = "*"
+rust-crypto = "*"
