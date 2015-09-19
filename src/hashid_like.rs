@@ -1,4 +1,5 @@
 use std::io;
+#[cfg(test)]
 use std::u64;
 
 const ALPHABET: &'static[u8] =   b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -21,9 +22,22 @@ pub fn encode_wr<W:io::Write>(wr: &mut W, id: u64) -> io::Result<()> {
     wr.write_all(&buf[..i])
 }
 
+#[inline(always)]
+pub fn encode_into_vec(vec: &mut Vec<u8>, id: u64) {
+    let mut n = id;
+    let alphasize = ALPHABET.len() as u64;
+
+    loop {
+        let rem = n % alphasize;
+        n = n / alphasize;
+        vec.push(ALPHABET[rem as usize]);
+        if n == 0 { break; }
+    }
+}
+
 pub fn encode(id: u64) -> String {
     let mut v = Vec::new();
-    encode_wr(&mut v, id).unwrap();
+    encode_into_vec(&mut v, id);
     String::from_utf8(v).unwrap()
 }
 
