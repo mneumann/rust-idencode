@@ -66,7 +66,7 @@ pub fn decode_id(bytes: &[u8]) -> Option<u64> {
     return Some(id);
 }
 
-#[inline(always)]
+#[inline]
 pub fn encode_id_into_vec(vec: &mut Vec<u8>, id: u64) {
     let mut n = id;
 
