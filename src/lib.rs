@@ -1,4 +1,4 @@
-#![feature(core)]
+#![feature(peekable_is_empty)]
 extern crate biterator;
 extern crate itertools;
 #[cfg(test)] extern crate rand;
